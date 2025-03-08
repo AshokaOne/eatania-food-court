@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eatania Food Court</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,9 +13,6 @@
             font-family: 'Poppins', sans-serif;
         }
 
-
-
-        
         body {
             background-color: #f9f9f9;
             color: #333;
@@ -28,7 +26,7 @@
             align-items: center;
             text-align: center;
             background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
-                        url('images/food-pattern-bg.jpg');
+                        url('food-pattern-bg.jpg');
             background-size: cover;
             padding: 20px;
         }
@@ -63,6 +61,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
         }
 
         .scroll-arrow::after {
@@ -89,6 +88,7 @@
 
         .restaurants-section {
             padding: 40px 20px;
+            scroll-margin-top: 50px;
         }
 
         h2 {
@@ -112,7 +112,6 @@
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
         }
 
         .restaurant-card:hover {
@@ -153,104 +152,139 @@
             transition: background 0.3s ease;
             text-align: center;
             width: 100%;
+            cursor: pointer;
         }
 
         .view-menu-btn:hover {
             background: #45a049;
         }
 
-        .pdf-viewer {
+        /* Specific styling for Salado Café */
+        .salado-card .view-menu-btn {
+            background: linear-gradient(to right, #8BC34A, #4CAF50);
+        }
+        
+        .salado-card .view-menu-btn:hover {
+            background: linear-gradient(to right, #7CB342, #45a049);
+        }
+
+        .salado-text {
+            background: linear-gradient(to right, #8BC34A, #4CAF50);
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Custom Menu Viewer Styles */
+        .menu-viewer {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.8);
             z-index: 1000;
             display: none;
             flex-direction: column;
         }
 
-        .pdf-header {
+        .menu-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px;
-            background: #4CAF50;
+            background-color: #4CAF50;
             color: white;
         }
 
-        .pdf-title {
+        .menu-title {
             font-size: 1.2rem;
+            font-weight: bold;
         }
 
-        .close-btn {
+        .close-menu-btn {
             background: none;
             border: none;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+
+        .menu-content {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .menu-image {
+            max-width: 100%;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            position: sticky;
+            bottom: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-nav button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin: 0 10px;
+            border-radius: 5px;
             cursor: pointer;
         }
-
-        .pdf-container {
-            flex: 1;
-            width: 100%;
-            height: calc(100% - 60px);
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .restaurant-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-
-        /* Specific styling for Salado Café button to match their brand colors */
-        .salado-btn {
-            background: linear-gradient(to right, #8BC34A, #4CAF50);
-        }
-        
-        .salado-btn:hover {
-            background: linear-gradient(to right, #7CB342, #45a049);
-        }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Welcome Screen -->
-    <div class="welcome-screen">
-        <img src="images/eatania-logo.png" alt="Eatania Food Court Logo" class="logo">
+    <div class="welcome-screen" id="welcome">
+        <img src="eatania-logo.png" alt="Eatania Food Court Logo" class="logo">
         <h1>Welcome to Eatania Food Court</h1>
         <p class="welcome-text">Discover a variety of delicious dining options all in one place.</p>
         <div class="scroll-arrow"></div>
     </div>
 
     <!-- Restaurants Section -->
-    <div class="restaurants-section">
+    <div class="restaurants-section" id="Our-Restaurants">
         <h2>Our Restaurants</h2>
         <div class="restaurant-grid">
             <!-- Salado Café Card -->
-            <div class="restaurant-card" onclick="openPdfViewer('salado')">
-                <img src="images/salado.jpg" alt="Salado Café" class="restaurant-image">
+            <div class="restaurant-card salado-card">
+                <!-- Option 1: Use the image -->
+                <img src="salado.jpg" alt="Salado Café" class="restaurant-image">
+                
+                <!-- Option 2: Use text-based styling -->
+                <!-- <div class="salado-text">Salado</div> -->
+                
                 <div class="restaurant-info">
                     <h3 class="restaurant-name">Salado Café</h3>
                     <p class="restaurant-cuisine">Healthy • Vegetarian • Salads</p>
-                    <a href="#" class="view-menu-btn salado-btn">View Menu</a>
+                    <a href="#" class="view-menu-btn" onclick="event.preventDefault(); openMenuViewer('salado')">View Menu</a>
                 </div>
             </div>
 
             <!-- Add more restaurant cards here -->
             <div class="restaurant-card">
-                <img src="images/placeholder.jpg" alt="Restaurant 2" class="restaurant-image">
+                <img src="placeholder.jpg" alt="Restaurant 2" class="restaurant-image">
                 <div class="restaurant-info">
                     <h3 class="restaurant-name">Restaurant 2</h3>
                     <p class="restaurant-cuisine">Cuisine Type</p>
@@ -262,48 +296,76 @@
         </div>
     </div>
 
-    <!-- PDF Viewer Overlay -->
-    <div class="pdf-viewer" id="pdfViewer">
-        <div class="pdf-header">
-            <div class="pdf-title" id="pdfTitle">Restaurant Menu</div>
-            <button class="close-btn" onclick="closePdfViewer()">&times;</button>
+    <!-- Custom Menu Viewer -->
+    <div class="menu-viewer" id="menuViewer">
+        <div class="menu-header">
+            <div class="menu-title" id="menuTitle">Salado Café Menu</div>
+            <button class="close-menu-btn" onclick="closeMenuViewer()">&times;</button>
         </div>
-        <div class="pdf-container">
-            <iframe id="pdfFrame" src=""></iframe>
+        <div class="menu-content" id="menuContent">
+            <!-- Menu images will be inserted here by JavaScript -->
+        </div>
+        <div class="menu-nav">
+            <button onclick="closeMenuViewer()">Back to Restaurants</button>
         </div>
     </div>
 
     <script>
-        function openPdfViewer(restaurant) {
-            const pdfViewer = document.getElementById('pdfViewer');
-            const pdfFrame = document.getElementById('pdfFrame');
-            const pdfTitle = document.getElementById('pdfTitle');
+        // Scroll functionality for the down arrow
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollArrow = document.querySelector('.scroll-arrow');
+            const restaurantsSection = document.getElementById('Our-Restaurants');
             
-            // Set the appropriate PDF and title based on the restaurant
-            if (restaurant === 'salado') {
-                pdfFrame.src = 'menus/salado.pdf';
-                pdfTitle.textContent = 'Salado Café Menu';
+            if (scrollArrow && restaurantsSection) {
+                scrollArrow.addEventListener('click', function() {
+                    restaurantsSection.scrollIntoView({ behavior: 'smooth' });
+                });
             }
-            // Add more restaurants as needed
+        });
+
+        // Menu pages for Salado
+        const saladoMenuPages = [
+            'menu-images/salado-1.jpg',
+            'menu-images/salado-2.jpg',
+            'menu-images/salado-3.jpg',
+            'menu-images/salado-4.jpg',
+            'menu-images/salado-5.jpg',
+            'menu-images/salado-6.jpg'
+        ];
+
+        function openMenuViewer(restaurant) {
+            const menuViewer = document.getElementById('menuViewer');
+            const menuContent = document.getElementById('menuContent');
+            const menuTitle = document.getElementById('menuTitle');
             
-            // Show the PDF viewer
-            pdfViewer.style.display = 'flex';
+            // Clear previous content
+            menuContent.innerHTML = '';
             
-            // Prevent scrolling of the background
+            // Set appropriate restaurant menu
+            if (restaurant === 'salado') {
+                menuTitle.textContent = 'Salado Café Menu';
+                
+                // Add menu images
+                saladoMenuPages.forEach(page => {
+                    const img = document.createElement('img');
+                    img.src = page;
+                    img.alt = 'Salado Menu Page';
+                    img.className = 'menu-image';
+                    menuContent.appendChild(img);
+                });
+            }
+            // Add other restaurants as needed
+            
+            // Show the menu viewer
+            menuViewer.style.display = 'flex';
+            
+            // Prevent background scrolling
             document.body.style.overflow = 'hidden';
         }
         
-        function closePdfViewer() {
-            const pdfViewer = document.getElementById('pdfViewer');
-            const pdfFrame = document.getElementById('pdfFrame');
-            
-            // Hide the PDF viewer
-            pdfViewer.style.display = 'none';
-            
-            // Clear the iframe source
-            pdfFrame.src = '';
-            
-            // Re-enable scrolling
+        function closeMenuViewer() {
+            const menuViewer = document.getElementById('menuViewer');
+            menuViewer.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
     </script>
