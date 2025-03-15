@@ -143,39 +143,39 @@
 
         .view-menu-btn {
             display: inline-block;
-            background: #4CAF50;
-            color: white;
             padding: 10px 15px;
             border-radius: 5px;
             text-decoration: none;
             font-weight: 500;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
             text-align: center;
             width: 100%;
             cursor: pointer;
         }
 
-        .view-menu-btn:hover {
-            background: #45a049;
+        /* Specific styling for Salado Café */
+        .salado-card .restaurant-name {
+            color: #E74C3C;
         }
 
-        /* Specific styling for Salado Café */
         .salado-card .view-menu-btn {
-            background: white;
-            color: #4CAF50;
-            border: 2px solid #4CAF50;
+            background: #4CAF50;
+            color: white;
+            border: none;
         }
         
         .salado-card .view-menu-btn:hover {
-            background: #f9f9f9;
-            color: #45a049;
-            border: 2px solid #45a049;
+            background: #45a049;
         }
 
         /* Captain Kunafa styling */
+        .kunafa-card .restaurant-name {
+            color: #E74C3C;
+        }
+
         .kunafa-card .view-menu-btn {
             background: #FFC107;
-            color: #333;
+            color: white;
             border: none;
         }
 
@@ -209,7 +209,7 @@
         }
 
         .kunafa-header {
-            background-color: #4CAF50;
+            background-color: #FFC107;
         }
 
         .menu-title {
@@ -268,7 +268,7 @@
 
         .kunafa-back-btn {
             background: #FFC107;
-            color: #333;
+            color: white;
         }
     </style>
 </head>
@@ -287,7 +287,7 @@
         <div class="restaurant-grid">
             <!-- Salado Café Card -->
             <div class="restaurant-card salado-card">
-                <img src="images/salado-only-logo.jpg" alt="Salado Café" class="restaurant-image">
+                <img src="images/salado-only-logo-new.jpg" alt="Salado Café" class="restaurant-image">
                 <div class="restaurant-info">
                     <h3 class="restaurant-name">Salado Café</h3>
                     <p class="restaurant-cuisine">Healthy • Vegetarian • Salads</p>
