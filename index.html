@@ -161,11 +161,15 @@
 
         /* Specific styling for Salado Café */
         .salado-card .view-menu-btn {
-            background: linear-gradient(to right, #8BC34A, #4CAF50);
+            background: white;
+            color: #4CAF50;
+            border: 2px solid #4CAF50;
         }
         
         .salado-card .view-menu-btn:hover {
-            background: linear-gradient(to right, #7CB342, #45a049);
+            background: #f9f9f9;
+            color: #45a049;
+            border: 2px solid #45a049;
         }
 
         .salado-text {
@@ -178,6 +182,16 @@
             font-weight: bold;
             color: white;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Captain Kunafa styling */
+        .kunafa-card .view-menu-btn {
+            background: linear-gradient(to right, #ffc107, #ff9800);
+            color: white;
+        }
+
+        .kunafa-card .view-menu-btn:hover {
+            background: linear-gradient(to right, #ffb300, #fb8c00);
         }
 
         /* Custom Menu Viewer Styles */
@@ -282,24 +296,34 @@
                 </div>
             </div>
 
-            <!-- Add more restaurant cards here
-            <div class="restaurant-card">
-                <img src="placeholder.jpg" alt="Restaurant 2" class="restaurant-image">
+            <!-- Captain Kunafa Card -->
+            <div class="restaurant-card kunafa-card">
+                <img src="images/captain-kunafa.jpg" alt="Captain Kunafa" class="restaurant-image">
                 <div class="restaurant-info">
-                    <h3 class="restaurant-name">Restaurant 2</h3>
-                    <p class="restaurant-cuisine">Cuisine Type</p>
-                    <a href="#" class="view-menu-btn">View Menu</a>
+                    <h3 class="restaurant-name">Captain Kunafa</h3>
+                    <p class="restaurant-cuisine">Desserts • Middle Eastern • Kunafa</p>
+                    <a href="#" class="view-menu-btn" onclick="event.preventDefault(); openMenuViewer('captain-kunafa')">View Menu</a>
                 </div>
             </div>
 
-            <!-- Add as many restaurants as needed -->
+            <!-- Template for additional restaurant cards -->
+            <!-- 
+            <div class="restaurant-card">
+                <img src="images/restaurant-name.jpg" alt="Restaurant Name" class="restaurant-image">
+                <div class="restaurant-info">
+                    <h3 class="restaurant-name">Restaurant Name</h3>
+                    <p class="restaurant-cuisine">Cuisine Type</p>
+                    <a href="#" class="view-menu-btn" onclick="event.preventDefault(); openMenuViewer('restaurant-id')">View Menu</a>
+                </div>
+            </div>
+            -->
         </div>
     </div>
 
     <!-- Custom Menu Viewer -->
     <div class="menu-viewer" id="menuViewer">
         <div class="menu-header">
-            <div class="menu-title" id="menuTitle">Salado Café Menu</div>
+            <div class="menu-title" id="menuTitle">Restaurant Menu</div>
             <button class="close-menu-btn" onclick="closeMenuViewer()">&times;</button>
         </div>
         <div class="menu-content" id="menuContent">
@@ -323,14 +347,28 @@
             }
         });
 
+        // Menu pages for Salado
         const saladoMenuPages = [
-    'images/salado-1.jpg',
-    'images/salado-2.jpg',
-    'images/salado-3.jpg',
-    'images/salado-4.jpg',
-    'images/salado-5.jpg',
-    'images/salado-6.jpg'
-];
+            'images/salado-1.jpg',
+            'images/salado-2.jpg',
+            'images/salado-3.jpg',
+            'images/salado-4.jpg',
+            'images/salado-5.jpg',
+            'images/salado-6.jpg'
+        ];
+
+        // Menu pages for Captain Kunafa
+        const captainKunafaMenuPages = [
+            'images/captain-kunafa-1.jpg',
+            'images/captain-kunafa-2.jpg',
+            'images/captain-kunafa-3.jpg',
+            'images/captain-kunafa-4.jpg',
+            'images/captain-kunafa-5.jpg',
+            'images/captain-kunafa-6.jpg',
+            'images/captain-kunafa-7.jpg',
+            'images/captain-kunafa-8.jpg',
+            'images/captain-kunafa-9.jpg',
+        ];
 
         function openMenuViewer(restaurant) {
             const menuViewer = document.getElementById('menuViewer');
@@ -345,11 +383,34 @@
                 menuTitle.textContent = 'Salado Café Menu';
                 
                 // Add menu images
-                saladoMenuPages.forEach(page => {
+                saladoMenuPages.forEach((page, index) => {
                     const img = document.createElement('img');
                     img.src = page;
                     img.alt = 'Salado Menu Page';
                     img.className = 'menu-image';
+                    
+                    // Add lazy loading for non-first image
+                    if (index > 0) {
+                        img.loading = 'lazy';
+                    }
+                    
+                    menuContent.appendChild(img);
+                });
+            } else if (restaurant === 'captain-kunafa') {
+                menuTitle.textContent = 'Captain Kunafa Menu';
+                
+                // Add menu images
+                captainKunafaMenuPages.forEach((page, index) => {
+                    const img = document.createElement('img');
+                    img.src = page;
+                    img.alt = 'Captain Kunafa Menu Page';
+                    img.className = 'menu-image';
+                    
+                    // Add lazy loading for non-first image
+                    if (index > 0) {
+                        img.loading = 'lazy';
+                    }
+                    
                     menuContent.appendChild(img);
                 });
             }
