@@ -172,26 +172,15 @@
             border: 2px solid #45a049;
         }
 
-        .salado-text {
-            background: linear-gradient(to right, #8BC34A, #4CAF50);
-            height: 150px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 3.5rem;
-            font-weight: bold;
-            color: white;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-        }
-
         /* Captain Kunafa styling */
         .kunafa-card .view-menu-btn {
-            background: linear-gradient(to right, #ffc107, #ff9800);
-            color: white;
+            background: #FFC107;
+            color: #333;
+            border: none;
         }
 
         .kunafa-card .view-menu-btn:hover {
-            background: linear-gradient(to right, #ffb300, #fb8c00);
+            background: #FFB300;
         }
 
         /* Custom Menu Viewer Styles */
@@ -212,8 +201,15 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px;
-            background-color: #4CAF50;
             color: white;
+        }
+
+        .salado-header {
+            background-color: #4CAF50;
+        }
+
+        .kunafa-header {
+            background-color: #4CAF50;
         }
 
         .menu-title {
@@ -257,14 +253,22 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .menu-nav button {
-            background: #4CAF50;
-            color: white;
+        .back-btn {
             border: none;
             padding: 8px 15px;
             margin: 0 10px;
             border-radius: 5px;
             cursor: pointer;
+            color: white;
+        }
+
+        .salado-back-btn {
+            background: #4CAF50;
+        }
+
+        .kunafa-back-btn {
+            background: #FFC107;
+            color: #333;
         }
     </style>
 </head>
@@ -283,12 +287,7 @@
         <div class="restaurant-grid">
             <!-- Salado Café Card -->
             <div class="restaurant-card salado-card">
-                <!-- Option 1: Use the image -->
-                <img src="images/salado-only-logo-new.jpg" alt="Salado Café" class="restaurant-image">
-                
-                <!-- Option 2: Use text-based styling -->
-                <!-- <div class="salado-text">Salado</div> -->
-                
+                <img src="images/salado-only-logo.jpg" alt="Salado Café" class="restaurant-image">
                 <div class="restaurant-info">
                     <h3 class="restaurant-name">Salado Café</h3>
                     <p class="restaurant-cuisine">Healthy • Vegetarian • Salads</p>
@@ -320,17 +319,31 @@
         </div>
     </div>
 
-    <!-- Custom Menu Viewer -->
-    <div class="menu-viewer" id="menuViewer">
-        <div class="menu-header">
-            <div class="menu-title" id="menuTitle">Restaurant Menu</div>
-            <button class="close-menu-btn" onclick="closeMenuViewer()">&times;</button>
+    <!-- Salado Menu Viewer -->
+    <div class="menu-viewer" id="saladoMenuViewer">
+        <div class="menu-header salado-header">
+            <div class="menu-title">Salado Café Menu</div>
+            <button class="close-menu-btn" onclick="closeMenuViewer('salado')">&times;</button>
         </div>
-        <div class="menu-content" id="menuContent">
+        <div class="menu-content" id="saladoMenuContent">
             <!-- Menu images will be inserted here by JavaScript -->
         </div>
         <div class="menu-nav">
-            <button onclick="closeMenuViewer()">Back to Restaurants</button>
+            <button onclick="closeMenuViewer('salado')" class="back-btn salado-back-btn">Back to Restaurants</button>
+        </div>
+    </div>
+
+    <!-- Captain Kunafa Menu Viewer -->
+    <div class="menu-viewer" id="kunafaMenuViewer">
+        <div class="menu-header kunafa-header">
+            <div class="menu-title">Captain Kunafa Menu</div>
+            <button class="close-menu-btn" onclick="closeMenuViewer('captain-kunafa')">&times;</button>
+        </div>
+        <div class="menu-content" id="kunafaMenuContent">
+            <!-- Menu images will be inserted here by JavaScript -->
+        </div>
+        <div class="menu-nav">
+            <button onclick="closeMenuViewer('captain-kunafa')" class="back-btn kunafa-back-btn">Back to Restaurants</button>
         </div>
     </div>
 
@@ -347,7 +360,7 @@
             }
         });
 
-        // Menu pages for Salado
+        // Menu pages for restaurants
         const saladoMenuPages = [
             'images/salado-1.jpg',
             'images/salado-2.jpg',
@@ -357,7 +370,6 @@
             'images/salado-6.jpg'
         ];
 
-        // Menu pages for Captain Kunafa
         const captainKunafaMenuPages = [
             'images/captain-kunafa-1.jpg',
             'images/captain-kunafa-2.jpg',
@@ -368,19 +380,18 @@
             'images/captain-kunafa-7.jpg',
             'images/captain-kunafa-8.jpg',
             'images/captain-kunafa-9.jpg',
+            'images/captain-kunafa-10.jpg',
+            'images/captain-kunafa-11.jpg',
+            'images/captain-kunafa-12.jpg'
         ];
 
         function openMenuViewer(restaurant) {
-            const menuViewer = document.getElementById('menuViewer');
-            const menuContent = document.getElementById('menuContent');
-            const menuTitle = document.getElementById('menuTitle');
-            
-            // Clear previous content
-            menuContent.innerHTML = '';
-            
-            // Set appropriate restaurant menu
             if (restaurant === 'salado') {
-                menuTitle.textContent = 'Salado Café Menu';
+                const menuViewer = document.getElementById('saladoMenuViewer');
+                const menuContent = document.getElementById('saladoMenuContent');
+                
+                // Clear previous content
+                menuContent.innerHTML = '';
                 
                 // Add menu images
                 saladoMenuPages.forEach((page, index) => {
@@ -396,8 +407,16 @@
                     
                     menuContent.appendChild(img);
                 });
+                
+                // Show the menu viewer
+                menuViewer.style.display = 'flex';
+                
             } else if (restaurant === 'captain-kunafa') {
-                menuTitle.textContent = 'Captain Kunafa Menu';
+                const menuViewer = document.getElementById('kunafaMenuViewer');
+                const menuContent = document.getElementById('kunafaMenuContent');
+                
+                // Clear previous content
+                menuContent.innerHTML = '';
                 
                 // Add menu images
                 captainKunafaMenuPages.forEach((page, index) => {
@@ -413,19 +432,23 @@
                     
                     menuContent.appendChild(img);
                 });
+                
+                // Show the menu viewer
+                menuViewer.style.display = 'flex';
             }
-            // Add other restaurants as needed
-            
-            // Show the menu viewer
-            menuViewer.style.display = 'flex';
             
             // Prevent background scrolling
             document.body.style.overflow = 'hidden';
         }
         
-        function closeMenuViewer() {
-            const menuViewer = document.getElementById('menuViewer');
-            menuViewer.style.display = 'none';
+        function closeMenuViewer(restaurant) {
+            if (restaurant === 'salado') {
+                document.getElementById('saladoMenuViewer').style.display = 'none';
+            } else if (restaurant === 'captain-kunafa') {
+                document.getElementById('kunafaMenuViewer').style.display = 'none';
+            }
+            
+            // Re-enable background scrolling
             document.body.style.overflow = 'auto';
         }
     </script>
